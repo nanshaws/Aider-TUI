@@ -1,0 +1,391 @@
+Metadata-Version: 2.4
+Name: aider-tui
+Version: 0.1.dev2+g40335187e.d20260113
+Summary: Aider is AI pair programming in your terminal
+Project-URL: Homepage, https://github.com/Aider-AI/aider
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development
+Requires-Python: <3.13,>=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: aiohappyeyeballs==2.6.1
+Requires-Dist: aiohttp==3.13.2
+Requires-Dist: aiosignal==1.4.0
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anyio==4.12.0
+Requires-Dist: asgiref==3.11.0
+Requires-Dist: attrs==25.4.0
+Requires-Dist: backoff==2.2.1
+Requires-Dist: beautifulsoup4==4.14.3
+Requires-Dist: cachetools==6.2.4
+Requires-Dist: certifi==2025.11.12
+Requires-Dist: cffi==2.0.0
+Requires-Dist: charset-normalizer==3.4.4
+Requires-Dist: click==8.3.1
+Requires-Dist: configargparse==1.7.1
+Requires-Dist: diff-match-patch==20241021
+Requires-Dist: diskcache==5.6.3
+Requires-Dist: distro==1.9.0
+Requires-Dist: fastuuid==0.14.0
+Requires-Dist: filelock==3.20.1
+Requires-Dist: flake8==7.3.0
+Requires-Dist: frozenlist==1.8.0
+Requires-Dist: fsspec==2025.12.0
+Requires-Dist: gitdb==4.0.12
+Requires-Dist: gitpython==3.1.45
+Requires-Dist: google-ai-generativelanguage==0.6.15
+Requires-Dist: google-api-core[grpc]==2.28.1
+Requires-Dist: google-api-python-client==2.187.0
+Requires-Dist: google-auth==2.45.0
+Requires-Dist: google-auth-httplib2==0.3.0
+Requires-Dist: google-generativeai==0.8.6
+Requires-Dist: googleapis-common-protos==1.72.0
+Requires-Dist: grep-ast==0.9.0
+Requires-Dist: grpcio==1.67.1
+Requires-Dist: grpcio-status==1.67.1
+Requires-Dist: h11==0.16.0
+Requires-Dist: hf-xet==1.2.0
+Requires-Dist: httpcore==1.0.9
+Requires-Dist: httplib2==0.31.0
+Requires-Dist: httpx==0.28.1
+Requires-Dist: huggingface-hub==0.36.0
+Requires-Dist: idna==3.11
+Requires-Dist: importlib-metadata==7.2.1
+Requires-Dist: importlib-resources==6.5.2
+Requires-Dist: jinja2==3.1.6
+Requires-Dist: jiter==0.12.0
+Requires-Dist: json5==0.12.1
+Requires-Dist: jsonschema==4.25.1
+Requires-Dist: jsonschema-specifications==2025.9.1
+Requires-Dist: litellm==1.80.10
+Requires-Dist: markdown-it-py==4.0.0
+Requires-Dist: markupsafe==3.0.3
+Requires-Dist: mccabe==0.7.0
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: mixpanel==5.0.0
+Requires-Dist: mslex==1.3.0
+Requires-Dist: multidict==6.7.0
+Requires-Dist: networkx==3.4.2
+Requires-Dist: numpy==1.26.4
+Requires-Dist: openai==2.13.0
+Requires-Dist: oslex==0.1.3
+Requires-Dist: packaging==25.0
+Requires-Dist: pathspec==0.12.1
+Requires-Dist: pexpect==4.9.0
+Requires-Dist: pillow==12.0.0
+Requires-Dist: posthog==7.4.0
+Requires-Dist: prompt-toolkit==3.0.52
+Requires-Dist: propcache==0.4.1
+Requires-Dist: proto-plus==1.27.0
+Requires-Dist: protobuf==5.29.5
+Requires-Dist: psutil==7.1.3
+Requires-Dist: ptyprocess==0.7.0
+Requires-Dist: pyasn1==0.6.1
+Requires-Dist: pyasn1-modules==0.4.2
+Requires-Dist: pycodestyle==2.14.0
+Requires-Dist: pycparser==2.23
+Requires-Dist: pydantic==2.12.5
+Requires-Dist: pydantic-core==2.41.5
+Requires-Dist: pydub==0.25.1
+Requires-Dist: pyflakes==3.4.0
+Requires-Dist: pygments==2.19.2
+Requires-Dist: pypandoc==1.16.2
+Requires-Dist: pyparsing==3.2.5
+Requires-Dist: pyperclip==1.11.0
+Requires-Dist: python-dateutil==2.9.0.post0
+Requires-Dist: python-dotenv==1.2.1
+Requires-Dist: pyyaml==6.0.3
+Requires-Dist: referencing==0.37.0
+Requires-Dist: regex==2025.11.3
+Requires-Dist: requests==2.32.5
+Requires-Dist: rich==14.2.0
+Requires-Dist: rpds-py==0.30.0
+Requires-Dist: rsa==4.9.1
+Requires-Dist: scipy==1.15.3
+Requires-Dist: shtab==1.8.0
+Requires-Dist: six==1.17.0
+Requires-Dist: smmap==5.0.2
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: socksio==1.0.0
+Requires-Dist: sounddevice==0.5.3
+Requires-Dist: soundfile==0.13.1
+Requires-Dist: soupsieve==2.8.1
+Requires-Dist: tiktoken==0.12.0
+Requires-Dist: tokenizers==0.22.1
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: tree-sitter-c-sharp==0.23.1
+Requires-Dist: tree-sitter-embedded-template==0.25.0
+Requires-Dist: tree-sitter-language-pack==0.13.0
+Requires-Dist: tree-sitter-yaml==0.7.2
+Requires-Dist: typing-extensions==4.15.0
+Requires-Dist: typing-inspection==0.4.2
+Requires-Dist: uritemplate==4.2.0
+Requires-Dist: urllib3==2.6.2
+Requires-Dist: watchfiles==1.1.1
+Requires-Dist: wcwidth==0.2.14
+Requires-Dist: yarl==1.22.0
+Requires-Dist: zipp==3.23.0
+Requires-Dist: tree-sitter==0.23.2; python_version < "3.10"
+Requires-Dist: tree-sitter==0.25.2; python_version >= "3.10"
+Provides-Extra: dev
+Requires-Dist: build==1.3.0; extra == "dev"
+Requires-Dist: cachetools==6.2.4; extra == "dev"
+Requires-Dist: certifi==2025.11.12; extra == "dev"
+Requires-Dist: cfgv==3.5.0; extra == "dev"
+Requires-Dist: charset-normalizer==3.4.4; extra == "dev"
+Requires-Dist: click==8.3.1; extra == "dev"
+Requires-Dist: codespell==2.4.1; extra == "dev"
+Requires-Dist: cogapp==3.6.0; extra == "dev"
+Requires-Dist: contourpy==1.3.3; extra == "dev"
+Requires-Dist: cycler==0.12.1; extra == "dev"
+Requires-Dist: distlib==0.4.0; extra == "dev"
+Requires-Dist: filelock==3.20.1; extra == "dev"
+Requires-Dist: fonttools==4.61.1; extra == "dev"
+Requires-Dist: google-api-core[grpc]==2.28.1; extra == "dev"
+Requires-Dist: google-auth==2.45.0; extra == "dev"
+Requires-Dist: google-cloud-bigquery==3.39.0; extra == "dev"
+Requires-Dist: google-cloud-core==2.5.0; extra == "dev"
+Requires-Dist: google-crc32c==1.8.0; extra == "dev"
+Requires-Dist: google-resumable-media==2.8.0; extra == "dev"
+Requires-Dist: googleapis-common-protos==1.72.0; extra == "dev"
+Requires-Dist: grpcio==1.67.1; extra == "dev"
+Requires-Dist: grpcio-status==1.67.1; extra == "dev"
+Requires-Dist: identify==2.6.15; extra == "dev"
+Requires-Dist: idna==3.11; extra == "dev"
+Requires-Dist: imgcat==0.6.0; extra == "dev"
+Requires-Dist: iniconfig==2.3.0; extra == "dev"
+Requires-Dist: kiwisolver==1.4.9; extra == "dev"
+Requires-Dist: lox==1.0.0; extra == "dev"
+Requires-Dist: markdown-it-py==4.0.0; extra == "dev"
+Requires-Dist: matplotlib==3.10.8; extra == "dev"
+Requires-Dist: mdurl==0.1.2; extra == "dev"
+Requires-Dist: nodeenv==1.9.1; extra == "dev"
+Requires-Dist: numpy==1.26.4; extra == "dev"
+Requires-Dist: packaging==25.0; extra == "dev"
+Requires-Dist: pandas==2.3.3; extra == "dev"
+Requires-Dist: pillow==12.0.0; extra == "dev"
+Requires-Dist: pip==25.3; extra == "dev"
+Requires-Dist: pip-tools==7.5.2; extra == "dev"
+Requires-Dist: platformdirs==4.5.1; extra == "dev"
+Requires-Dist: pluggy==1.6.0; extra == "dev"
+Requires-Dist: pre-commit==4.5.1; extra == "dev"
+Requires-Dist: proto-plus==1.27.0; extra == "dev"
+Requires-Dist: protobuf==5.29.5; extra == "dev"
+Requires-Dist: pyasn1==0.6.1; extra == "dev"
+Requires-Dist: pyasn1-modules==0.4.2; extra == "dev"
+Requires-Dist: pygments==2.19.2; extra == "dev"
+Requires-Dist: pyparsing==3.2.5; extra == "dev"
+Requires-Dist: pyproject-hooks==1.2.0; extra == "dev"
+Requires-Dist: pytest==9.0.2; extra == "dev"
+Requires-Dist: pytest-env==1.2.0; extra == "dev"
+Requires-Dist: python-dateutil==2.9.0.post0; extra == "dev"
+Requires-Dist: pytz==2025.2; extra == "dev"
+Requires-Dist: pyyaml==6.0.3; extra == "dev"
+Requires-Dist: requests==2.32.5; extra == "dev"
+Requires-Dist: rich==14.2.0; extra == "dev"
+Requires-Dist: rsa==4.9.1; extra == "dev"
+Requires-Dist: semver==3.0.4; extra == "dev"
+Requires-Dist: setuptools==80.9.0; extra == "dev"
+Requires-Dist: shellingham==1.5.4; extra == "dev"
+Requires-Dist: six==1.17.0; extra == "dev"
+Requires-Dist: typer==0.20.0; extra == "dev"
+Requires-Dist: typing-extensions==4.15.0; extra == "dev"
+Requires-Dist: tzdata==2025.3; extra == "dev"
+Requires-Dist: urllib3==2.6.2; extra == "dev"
+Requires-Dist: uv==0.9.18; extra == "dev"
+Requires-Dist: virtualenv==20.35.4; extra == "dev"
+Requires-Dist: wheel==0.45.1; extra == "dev"
+Provides-Extra: help
+Requires-Dist: aiohappyeyeballs==2.6.1; extra == "help"
+Requires-Dist: aiohttp==3.13.2; extra == "help"
+Requires-Dist: aiosignal==1.4.0; extra == "help"
+Requires-Dist: aiosqlite==0.22.0; extra == "help"
+Requires-Dist: annotated-types==0.7.0; extra == "help"
+Requires-Dist: anyio==4.12.0; extra == "help"
+Requires-Dist: attrs==25.4.0; extra == "help"
+Requires-Dist: banks==2.2.0; extra == "help"
+Requires-Dist: certifi==2025.11.12; extra == "help"
+Requires-Dist: charset-normalizer==3.4.4; extra == "help"
+Requires-Dist: click==8.3.1; extra == "help"
+Requires-Dist: colorama==0.4.6; extra == "help"
+Requires-Dist: dataclasses-json==0.6.7; extra == "help"
+Requires-Dist: deprecated==1.3.1; extra == "help"
+Requires-Dist: dirtyjson==1.0.8; extra == "help"
+Requires-Dist: filelock==3.20.1; extra == "help"
+Requires-Dist: filetype==1.2.0; extra == "help"
+Requires-Dist: frozenlist==1.8.0; extra == "help"
+Requires-Dist: fsspec==2025.12.0; extra == "help"
+Requires-Dist: greenlet==3.3.0; extra == "help"
+Requires-Dist: griffe==1.15.0; extra == "help"
+Requires-Dist: h11==0.16.0; extra == "help"
+Requires-Dist: hf-xet==1.2.0; extra == "help"
+Requires-Dist: httpcore==1.0.9; extra == "help"
+Requires-Dist: httpx==0.28.1; extra == "help"
+Requires-Dist: huggingface-hub[inference]==0.36.0; extra == "help"
+Requires-Dist: idna==3.11; extra == "help"
+Requires-Dist: jinja2==3.1.6; extra == "help"
+Requires-Dist: joblib==1.5.3; extra == "help"
+Requires-Dist: llama-index-core==0.14.10; extra == "help"
+Requires-Dist: llama-index-embeddings-huggingface==0.6.1; extra == "help"
+Requires-Dist: llama-index-instrumentation==0.4.2; extra == "help"
+Requires-Dist: llama-index-workflows==2.11.5; extra == "help"
+Requires-Dist: markupsafe==3.0.3; extra == "help"
+Requires-Dist: marshmallow==3.26.1; extra == "help"
+Requires-Dist: mpmath==1.3.0; extra == "help"
+Requires-Dist: multidict==6.7.0; extra == "help"
+Requires-Dist: mypy-extensions==1.1.0; extra == "help"
+Requires-Dist: nest-asyncio==1.6.0; extra == "help"
+Requires-Dist: networkx==3.4.2; extra == "help"
+Requires-Dist: nltk==3.9.2; extra == "help"
+Requires-Dist: numpy==1.26.4; extra == "help"
+Requires-Dist: packaging==25.0; extra == "help"
+Requires-Dist: pillow==12.0.0; extra == "help"
+Requires-Dist: platformdirs==4.5.1; extra == "help"
+Requires-Dist: propcache==0.4.1; extra == "help"
+Requires-Dist: pydantic==2.12.5; extra == "help"
+Requires-Dist: pydantic-core==2.41.5; extra == "help"
+Requires-Dist: pyyaml==6.0.3; extra == "help"
+Requires-Dist: regex==2025.11.3; extra == "help"
+Requires-Dist: requests==2.32.5; extra == "help"
+Requires-Dist: safetensors==0.7.0; extra == "help"
+Requires-Dist: scikit-learn==1.8.0; extra == "help"
+Requires-Dist: scipy==1.15.3; extra == "help"
+Requires-Dist: sentence-transformers==5.2.0; extra == "help"
+Requires-Dist: setuptools==80.9.0; extra == "help"
+Requires-Dist: sqlalchemy[asyncio]==2.0.45; extra == "help"
+Requires-Dist: sympy==1.14.0; extra == "help"
+Requires-Dist: tenacity==9.1.2; extra == "help"
+Requires-Dist: threadpoolctl==3.6.0; extra == "help"
+Requires-Dist: tiktoken==0.12.0; extra == "help"
+Requires-Dist: tokenizers==0.22.1; extra == "help"
+Requires-Dist: torch==2.9.1; extra == "help"
+Requires-Dist: tqdm==4.67.1; extra == "help"
+Requires-Dist: transformers==4.57.3; extra == "help"
+Requires-Dist: typing-extensions==4.15.0; extra == "help"
+Requires-Dist: typing-inspect==0.9.0; extra == "help"
+Requires-Dist: typing-inspection==0.4.2; extra == "help"
+Requires-Dist: urllib3==2.6.2; extra == "help"
+Requires-Dist: wrapt==2.0.1; extra == "help"
+Requires-Dist: yarl==1.22.0; extra == "help"
+Provides-Extra: browser
+Requires-Dist: altair==6.0.0; extra == "browser"
+Requires-Dist: attrs==25.4.0; extra == "browser"
+Requires-Dist: blinker==1.9.0; extra == "browser"
+Requires-Dist: cachetools==6.2.4; extra == "browser"
+Requires-Dist: certifi==2025.11.12; extra == "browser"
+Requires-Dist: charset-normalizer==3.4.4; extra == "browser"
+Requires-Dist: click==8.3.1; extra == "browser"
+Requires-Dist: gitdb==4.0.12; extra == "browser"
+Requires-Dist: gitpython==3.1.45; extra == "browser"
+Requires-Dist: idna==3.11; extra == "browser"
+Requires-Dist: jinja2==3.1.6; extra == "browser"
+Requires-Dist: jsonschema==4.25.1; extra == "browser"
+Requires-Dist: jsonschema-specifications==2025.9.1; extra == "browser"
+Requires-Dist: markupsafe==3.0.3; extra == "browser"
+Requires-Dist: narwhals==2.14.0; extra == "browser"
+Requires-Dist: numpy==1.26.4; extra == "browser"
+Requires-Dist: packaging==25.0; extra == "browser"
+Requires-Dist: pandas==2.3.3; extra == "browser"
+Requires-Dist: pillow==12.0.0; extra == "browser"
+Requires-Dist: protobuf==5.29.5; extra == "browser"
+Requires-Dist: pyarrow==22.0.0; extra == "browser"
+Requires-Dist: pydeck==0.9.1; extra == "browser"
+Requires-Dist: python-dateutil==2.9.0.post0; extra == "browser"
+Requires-Dist: pytz==2025.2; extra == "browser"
+Requires-Dist: referencing==0.37.0; extra == "browser"
+Requires-Dist: requests==2.32.5; extra == "browser"
+Requires-Dist: rpds-py==0.30.0; extra == "browser"
+Requires-Dist: six==1.17.0; extra == "browser"
+Requires-Dist: smmap==5.0.2; extra == "browser"
+Requires-Dist: streamlit==1.52.2; extra == "browser"
+Requires-Dist: tenacity==9.1.2; extra == "browser"
+Requires-Dist: toml==0.10.2; extra == "browser"
+Requires-Dist: tornado==6.5.4; extra == "browser"
+Requires-Dist: typing-extensions==4.15.0; extra == "browser"
+Requires-Dist: tzdata==2025.3; extra == "browser"
+Requires-Dist: urllib3==2.6.2; extra == "browser"
+Provides-Extra: playwright
+Requires-Dist: greenlet==3.3.0; extra == "playwright"
+Requires-Dist: playwright==1.57.0; extra == "playwright"
+Requires-Dist: pyee==13.0.0; extra == "playwright"
+Requires-Dist: typing-extensions==4.15.0; extra == "playwright"
+Dynamic: license-file
+
+# 🚀 Aider-TUI: The Professional AI Pair Programming Shell
+
+**Aider-TUI** 是基于 Aider 开发的增强型终端界面。它通过重构底层的交互逻辑，解决了原生界面光标抖动、大项目路径遮挡以及误触发送等痛点，为你提供如 IDE 般稳定的终端开发体验。
+
+---
+
+## ✨ 核心特性
+
+### 1. 🔍 搜索框式交互设计 (Search-Box TUI)
+不同于传统的 `>` 提示符，Aider-TUI 采用了**固定重心的搜索框 UI**：
+* **视觉稳定性**：输入框始终固定在底部，不再随长路径文件名跳动。
+* **信息分层显示**：上下文文件列表（Editable/Readonly）整齐排布在输入框上方，互不干扰。
+* **动态状态栏**：底部状态栏实时显示快捷键提示与当前模型状态。
+
+### 2. 🧠 结构化智能回车 (Structural Smart Enter)
+再也不用担心代码写一半误触回车浪费 Token：
+* **符号平衡校验**：自动检测 `{}`, `[]`, `()` 是否闭合。未闭合时回车自动换行。
+* **分号终结符**：支持使用 `;` + `Enter` 明确表达提交意图。
+* **智能识别**：自动识别 `/` 指令与确认操作，保持原生命令的高效性。
+
+### 3. 🧪 深度优化模型支持
+内置了针对 2026 年主流模型的最佳配置：
+* **Gemini 3.0 Pro**: 完美适配 Architect 模式与超长上下文。
+* **Qwen 2.5 Coder**: 针对国产最强编程模型优化的 `diff` 协议。
+* **Reasoning Models**: 原生支持 QWQ 等推理模型的 `think` 标签过滤。
+
+---
+
+## 🛠️ 安装与快速开始
+
+### 1. 克隆并安装
+```bash
+git clone https://github.com/nanshaws/Aider-TUI.git
+cd aider-tui
+python -m pip install --upgrade pip
+pip install -e .
+```
+
+
+
+
+
+
+
+## 📊 对比原生 Aider
+
+| **特性**     | **原生 Aider**   | **Aider-TUI (Yours)**     |
+| ------------ | ---------------- | ------------------------- |
+| **输入重心** | 随文件名路径变动 | **始终固定在左下方**      |
+| **回车行为** | 容易误触发发送   | **智能判断符号平衡**      |
+| **视觉排版** | 简单的字符串堆叠 | **Rich 驱动的列式分层**   |
+| **提示引导** | 较少             | **底部 Toolbar 实时引导** |
+
+------
+
+## 🤝 贡献与感谢
+
+本项目基于 [Aider](https://github.com/Aider-AI/aider) 开发，感谢原作者提供的卓越基础。
+
+如果你喜欢这套更人性化的 TUI 逻辑，欢迎提交 Issue 或 PR！
+
+```
+---
+
+### 四、 下一步建议的操作
+
+1.  **创建项目**：在 GitHub 上创建一个新的仓库（建议选 Public），然后将你本地修改好的 `io.py` 和 `models.py` 提交上去。
+2.  **录制 GIF**：文档里最吸引人的地方就是视觉对比。你可以录一段短视频，展示你输入 `{` 然后回车自动换行，以及 `;` 结尾才提交的神奇操作。
+3.  **功能打磨**：你目前的括号平衡校验是通用的，**你想让我帮你针对 Python 的冒号 `:` 和缩进逻辑，再写一
+```

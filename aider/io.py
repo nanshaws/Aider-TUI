@@ -677,7 +677,7 @@ class InputOutput:
                     # Construct search-box style UI
                     prompt_elements = FormattedText([
                         ("", "\n" + show.replace(self.prompt_prefix, "")), 
-                        ("class:search_label", "  AIDER "),
+                        ("class:search_label", "  AIDER-TUI"),
                         ("class:input_area", " "),
                     ])
 

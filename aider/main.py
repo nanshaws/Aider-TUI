@@ -359,6 +359,11 @@ def register_models(git_root, model_settings_fname, io, verbose=False):
 
 
 def load_dotenv_files(git_root, dotenv_fname, encoding="utf-8"):
+    package_root = Path(__file__).resolve().parent.parent
+    global_env = package_root / ".env"
+    if global_env.exists():
+        load_dotenv(global_env, override=True, encoding=encoding)
+    # ------------------------------------------------
     # Standard .env file search path
     dotenv_files = generate_search_path_list(
         ".env",
@@ -505,7 +510,7 @@ def main(argv=None, input=None, output=None, force_git_root=None, return_coder=F
 
     if args.shell_completions:
         # Ensure parser.prog is set for shtab, though it should be by default
-        parser.prog = "aider"
+        parser.prog = "aider-tui"
         print(shtab.complete(parser, shell=args.shell_completions))
         sys.exit(0)
 
