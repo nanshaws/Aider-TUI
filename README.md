@@ -4,6 +4,24 @@
 
 ---
 
+<p align="center">
+Aider-TUI lets you pair program with LLMs to start a new project or build on your existing codebase. 
+</p>
+
+<p align="center">
+  <img
+    src="https://nanshaws.top/wp-content/uploads/2026/01/demo.gif"
+    alt="aider-tui screencast"
+  >
+</p>
+
+<p align="center">
+  <img
+    src="https://nanshaws.top/wp-content/uploads/2026/01/demo01.gif"
+    alt="aider-tui screencast"
+  >
+</p>
+
 ## ✨ 核心特性
 
 ### 1. 🔍 搜索框式交互设计 (Search-Box TUI)
@@ -30,6 +48,8 @@ cd aider-tui
 mv .env.example .env
 python -m pip install --upgrade pip
 pip install -e .
+pip install playwright
+playwright install chromium
 ```
 
 ### 2. 🚀 启动与使用指南
@@ -81,12 +101,14 @@ aider-tui --model flash
 
 ### 3. 🛠️ 常用指令
 
-| **命令**         | **作用**                                               |
-| ---------------- | ------------------------------------------------------ |
-| `/add <文件名>`  | 将文件加入对话（文件名会立即出现在输入框上方的预览区） |
-| `/ls`            | 列出当前仓库中所有可用的文件                           |
-| `/drop <文件名>` | 从对话中移除文件                                       |
-| `/exit`          | 退出 Aider-TUI                                         |
+| **命令**                 | **作用**                                                     |
+| ------------------------ | ------------------------------------------------------------ |
+| `/add <文件名>`          | 将文件加入对话（文件名会立即出现在输入框上方的预览区）       |
+| `/ls`                    | 列出当前仓库中所有可用的文件                                 |
+| `/drop <文件名>`         | 从对话中移除文件                                             |
+| `/exit`                  | 退出 Aider-TUI                                               |
+| `/open` <网站名字>       | Launch any URL in your browser instantly.                    |
+| `/screenshot` <网站名字> | The AI can now request or perform background screenshots of your web apps. |
 
 ## 📊 对比原生 Aider
 
@@ -104,12 +126,23 @@ aider-tui --model flash
 - **真正的 TUI 体验**：
   - 将输入框标志由 `AIDER` 修改为 `AIDER-TUI`。
   - 重构了交互重心，无论你的项目路径多深，输入框永远在左下角等你。
+  
 - **全局“能源中心”**：
   - 通过硬核修改 `main.py`，现在你只需在 Aider-TUI 安装目录下配置一次 `.env`，全系统的任何代码文件夹都能直接调用这些 Key。
+  
 - **不丢包的仓库图谱**：
   - 我们修复了社区普遍存在的 `repomap.py` 报错问题，完美支持最新的 `tree-sitter` 解析，不再因为依赖更新而崩溃。
+  
 - **极简启动指令**：
   - 重新定义了 `pyproject.toml`，现在只需输入 `aider-tui --model g3` 即可瞬间唤醒经过 Architect 模式优化的 Gemini 3。
+  
+  ### 🌈 Visual Feedback Loop (New!)
+  
+  Aider-TUI is no longer blind. It can now interact with the web directly:
+  
+  - **`/open`**: Launch any URL in your browser instantly.
+  - **`/screenshot`**: The AI can now request or perform background screenshots of your web apps.
+  - **Vision-Link**: Combine with multi-modal models (GPT-4o, Gemini, Qwen-VL) to let the AI "see" UI bugs and fix them autonomously.
 
 ## 🤝 贡献与感谢
 

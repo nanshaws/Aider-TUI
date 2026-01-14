@@ -431,9 +431,14 @@ class Model(ModelSettings):
         m = model.lower()
         # 1. Define the Task Planning Prompt (to trigger the progress bar)
         task_prompt = (
-            "\nWhen you need to perform complex tasks (involving multiple steps or files), please strictly follow this format:\n"
-            "1. Output a task list before starting: <plan>Task 1, Task 2, Task 3</plan>\n"
-            "2. Output the current step identifier before each step: <step_start index=\"1\" />\n"
+            "\n[BROWSER CAPABILITY]\n"
+            "You can now interact with the browser. If you want to see the UI or a webpage:\n"
+            "1. Ask the user to run `/open <url>` to view it manually.\n"
+            "2. Ask the user to run `/screenshot <url>` to let you 'see' the UI.\n"
+            "Always verify your web changes (CSS/HTML) by suggesting a screenshot.\n"
+            "\n[TASK FORMAT]\n"
+            "1. <plan>Task 1, Task 2, Task 3</plan>\n"
+            "2. <step_start index=\"1\" />\n"
         )
 
         # ========================================================

@@ -251,6 +251,39 @@ class Commands:
             dict(role="user", content=content),
             dict(role="assistant", content="Ok."),
         ]
+	# --- 新增：打开浏览器命令 ---
+    def cmd_open(self, args):
+        """Open a URL in the default browser"""
+        url = args.strip()
+        if not url:
+            # 默认前端开发常用地址
+            url = "http://localhost:5173"
+        
+        self.io.tool_output(f"Opening {url} in browser...")
+        import webbrowser
+        webbrowser.open(url)
+
+    # --- 新增：后台截图命令 ---
+    def cmd_screenshot(self, args):
+        """Capture a screenshot of a URL (Requires playwright)"""
+        url = args.strip()
+        if not url:
+            url = "http://localhost:5173"
+        
+        self.io.tool_output(f"Capturing screenshot of {url}...")
+        
+        try:
+            # 动态导入我们刚才写的 helper
+            from .browser_helper import BrowserHelper
+            # 使用 self.coder.root 获取当前项目根目录
+            helper = BrowserHelper(self.coder.root)
+            result = helper.capture_screenshot(url)
+            self.io.tool_output(result)
+            self.io.tool_output("Tip: Use '/add screenshot.png' to let me see the UI.")
+        except ImportError:
+            self.io.tool_error("Please install playwright: pip install playwright && playwright install chromium")
+        except Exception as e:
+            self.io.tool_error(f"Screenshot failed: {e}")	
 
     def is_command(self, inp):
         return inp[0] in "/!"
