@@ -151,6 +151,7 @@ class ModelInfoManager:
     def __init__(self):
         self.cache_dir = Path.home() / ".aider" / "caches"
         self.cache_file = self.cache_dir / "model_prices_and_context_window.json"
+        self.model_info_url = os.environ.get("LITELLM_MODEL_COST_URL", self.MODEL_INFO_URL)
         self.content = None
         self.local_model_metadata = {}
         self.verify_ssl = True
@@ -184,24 +185,37 @@ class ModelInfoManager:
         self._cache_loaded = True
 
     def _update_cache(self):
-        try:
-            import requests
+        import requests
 
-            # Respect the --no-verify-ssl switch
-            response = requests.get(self.MODEL_INFO_URL, timeout=5, verify=self.verify_ssl)
-            if response.status_code == 200:
-                self.content = response.json()
-                try:
-                    self.cache_file.write_text(json.dumps(self.content, indent=4))
-                except OSError:
-                    pass
-        except Exception as ex:
-            print(str(ex))
+        # 1. Prepare the list of URLs to try
+        # Priority: .env mirror URL first, then the hardcoded original URL
+        urls_to_try = []
+        env_url = os.environ.get("LITELLM_MODEL_COST_URL")
+        if env_url:
+            urls_to_try.append(env_url)
+        urls_to_try.append(self.MODEL_INFO_URL)
+
+        success = False
+        for url in urls_to_try:
             try:
-                # Save empty dict to cache file on failure
-                self.cache_file.write_text("{}")
-            except OSError:
-                pass
+                # Set a short timeout (e.g., 3s) to prevent the application from freezing
+                response = requests.get(url, timeout=3, verify=self.verify_ssl)
+                if response.status_code == 200:
+                    self.content = response.json()
+                    self.cache_file.write_text(json.dumps(self.content, indent=4))
+                    # print(f"Successfully updated model info from: {url}") # For debugging
+                    success = True
+                    break # Exit the loop on success
+            except Exception:
+                # If current URL fails, print a notice and try the next candidate
+                print(f"Notice: Failed to connect to {url}, trying next option...")
+                continue
+
+        # 2. If all attempts fail, use the existing local cache or default to empty
+        if not success:
+            print("Warning: All model info sources failed. Using local cache or defaults.")
+            if not self.content:
+                self.content = {}
 
     def get_model_from_cached_json_db(self, model):
         data = self.local_model_metadata.get(model)
