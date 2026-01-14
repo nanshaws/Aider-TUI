@@ -147,6 +147,7 @@ class AutoCompleter(Completer):
             )
 
     def get_command_completions(self, document, complete_event, text, words):
+        # Case A: Typing the command itself (e.g., /ad -> /add)
         if len(words) == 1 and not text[-1].isspace():
             partial = words[0].lower()
             candidates = [cmd for cmd in self.command_names if cmd.startswith(partial)]
@@ -154,35 +155,38 @@ class AutoCompleter(Completer):
                 yield Completion(candidate, start_position=-len(words[-1]))
             return
 
-        if len(words) <= 1 or text[-1].isspace():
-            return
-
+        # Case B: Command is finished, now typing arguments/paths (e.g., /add src/)
         cmd = words[0]
-        partial = words[-1].lower()
-
         matches, _, _ = self.commands.matching_commands(cmd)
         if len(matches) == 1:
             cmd = matches[0]
         elif cmd not in matches:
             return
 
+        # Check for command-specific completers (like /settings)
         raw_completer = self.commands.get_raw_completions(cmd)
         if raw_completer:
             yield from raw_completer(document, complete_event)
             return
 
-        if cmd not in self.command_completions:
-            candidates = self.commands.get_completions(cmd)
-            self.command_completions[cmd] = candidates
-        else:
-            candidates = self.command_completions[cmd]
-
-        if candidates is None:
-            return
-
-        candidates = [word for word in candidates if partial in word.lower()]
-        for candidate in sorted(candidates):
-            yield Completion(candidate, start_position=-len(words[-1]))
+        # Logic for File Path Completion
+        current_arg = words[-1] if not text[-1].isspace() else ""
+        search_dir = "."
+        if "/" in current_arg:
+            search_dir = os.path.dirname(current_arg) or "."
+            
+        try:
+            expanded_dir = os.path.expanduser(search_dir)
+            if os.path.isdir(expanded_dir):
+                base_name = os.path.basename(current_arg)
+                for f in os.listdir(expanded_dir):
+                    if f.startswith(base_name):
+                        full_path = os.path.join(expanded_dir, f)
+                        is_dir = os.path.isdir(full_path)
+                        display_name = f + "/" if is_dir else f
+                        yield Completion(f, start_position=-len(base_name), display=display_name)
+        except Exception:
+            pass
 
     def get_completions(self, document, complete_event):
         self.tokenize()
@@ -265,6 +269,9 @@ class InputOutput:
         notifications=False,
         notifications_command=None,
     ):
+        self.task_plan = []
+        self.current_step = 0    
+        self.total_steps = 0     
         self.placeholder = None
         self.interrupted = False
         self.never_prompts = set()
@@ -371,7 +378,40 @@ class InputOutput:
 
         # Validate color settings after console is initialized
         self._validate_color_settings()
+        #
+    def get_task_bar_tokens(self):
+        if not self.total_steps:
+            return []
+        progress = (self.current_step / self.total_steps) if self.total_steps > 0 else 0
+        bar_width = 20
+        filled = int(bar_width * progress)
+        bar = "#" * filled + "-" * (bar_width - filled)
+        
+        desc = ""
+        if 0 < self.current_step <= len(self.task_plan):
+            # Translated to English
+            desc = f" | Executing: {self.task_plan[self.current_step-1]}"
 
+        return [
+            ("class:search_label", " TASK "),
+            ("", f" [{bar}] {int(progress*100)}% ({self.current_step}/{self.total_steps}){desc} "),
+        ]
+
+    
+    def parse_task_tags(self, content):
+        import re
+         
+        plan_match = re.search(r'<plan>(.*?)</plan>', content)
+        if plan_match:
+            self.task_plan = [s.strip() for s in plan_match.group(1).split(',')]
+            self.total_steps = len(self.task_plan)
+            self.current_step = 0
+
+        
+        step_match = re.search(r'<step_start index="(\d+)" />', content)
+        if step_match:
+            self.current_step = int(step_match.group(1))
+            
     def _validate_color_settings(self):
         """Validate configured color strings and reset invalid ones."""
         color_attributes = [
@@ -677,6 +717,8 @@ class InputOutput:
                     # Construct search-box style UI
                     prompt_elements = FormattedText([
                         ("", "\n" + show.replace(self.prompt_prefix, "")), 
+                         *self.get_task_bar_tokens(), 
+                        ("", "\n"),                   
                         ("class:search_label", "  AIDER-TUI"),
                         ("class:input_area", " "),
                     ])

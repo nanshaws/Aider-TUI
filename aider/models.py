@@ -414,6 +414,17 @@ class Model(ModelSettings):
                 self.accepts_settings.append("reasoning_effort")
 
     def apply_generic_model_settings(self, model):
+        m = model.lower()
+        # 1. Define the Task Planning Prompt (to trigger the progress bar)
+        task_prompt = (
+            "\nWhen you need to perform complex tasks (involving multiple steps or files), please strictly follow this format:\n"
+            "1. Output a task list before starting: <plan>Task 1, Task 2, Task 3</plan>\n"
+            "2. Output the current step identifier before each step: <step_start index=\"1\" />\n"
+        )
+
+        # ========================================================
+        # Phase 1: VIP Model Fine-Tuning (Specific Logic)
+        # ========================================================
         if "/o3-mini" in model:
             self.edit_format = "diff"
             self.use_repo_map = True
@@ -429,6 +440,7 @@ class Model(ModelSettings):
             self.use_repo_map = True
             self.reminder = "sys"
             self.examples_as_sys_msg = False
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "gpt-4.1" in model:
@@ -436,6 +448,7 @@ class Model(ModelSettings):
             self.use_repo_map = True
             self.reminder = "sys"
             self.examples_as_sys_msg = False
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         last_segment = model.split("/")[-1]
@@ -444,6 +457,7 @@ class Model(ModelSettings):
             self.edit_format = "diff"
             if "reasoning_effort" not in self.accepts_settings:
                 self.accepts_settings.append("reasoning_effort")
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "/o1-mini" in model:
@@ -457,6 +471,7 @@ class Model(ModelSettings):
             self.use_repo_map = True
             self.use_temperature = False
             self.use_system_prompt = False
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "/o1" in model:
@@ -467,6 +482,7 @@ class Model(ModelSettings):
             self.system_prompt_prefix = "Formatting re-enabled. "
             if "reasoning_effort" not in self.accepts_settings:
                 self.accepts_settings.append("reasoning_effort")
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "deepseek" in model and "v3" in model:
@@ -474,6 +490,7 @@ class Model(ModelSettings):
             self.use_repo_map = True
             self.reminder = "sys"
             self.examples_as_sys_msg = True
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "deepseek" in model and ("r1" in model or "reasoning" in model):
@@ -482,6 +499,7 @@ class Model(ModelSettings):
             self.examples_as_sys_msg = True
             self.use_temperature = False
             self.reasoning_tag = "think"
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if ("llama3" in model or "llama-3" in model) and "70b" in model:
@@ -489,6 +507,7 @@ class Model(ModelSettings):
             self.use_repo_map = True
             self.send_undo_reply = True
             self.examples_as_sys_msg = True
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "gpt-4-turbo" in model or ("gpt-4-" in model and "-preview" in model):
@@ -501,6 +520,7 @@ class Model(ModelSettings):
             self.edit_format = "diff"
             self.use_repo_map = True
             self.send_undo_reply = True
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "gpt-3.5" in model or "gpt-4" in model:
@@ -514,6 +534,7 @@ class Model(ModelSettings):
             self.reminder = "user"
             if "thinking_tokens" not in self.accepts_settings:
                 self.accepts_settings.append("thinking_tokens")
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "3.5-sonnet" in model or "3-5-sonnet" in model:
@@ -521,6 +542,7 @@ class Model(ModelSettings):
             self.use_repo_map = True
             self.examples_as_sys_msg = True
             self.reminder = "user"
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if model.startswith("o1-") or "/o1-" in model:
@@ -537,6 +559,7 @@ class Model(ModelSettings):
             self.edit_format = "diff"
             self.editor_edit_format = "editor-diff"
             self.use_repo_map = True
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "qwq" in model and "32b" in model and "preview" not in model:
@@ -547,20 +570,34 @@ class Model(ModelSettings):
             self.examples_as_sys_msg = True
             self.use_temperature = 0.6
             self.extra_params = dict(top_p=0.95)
+            self.system_prompt_prefix = task_prompt
             return  # <--
 
         if "qwen3" in model and "235b" in model:
             self.edit_format = "diff"
             self.use_repo_map = True
-            self.system_prompt_prefix = "/no_think"
+            self.system_prompt_prefix = "/no_think"+task_prompt
             self.use_temperature = 0.7
             self.extra_params = {"top_p": 0.8, "top_k": 20, "min_p": 0.0}
             return  # <--
-
-        # use the defaults
+         
+        if any(k in m for k in ["gemini-3", "o3", "o4", "r1", "thinking", "reasoning"]):
+            self.edit_format = "architect" 
+            self.use_repo_map = True
+            self.system_prompt_prefix = task_prompt
+            return
+        if any(k in m for k in ["qwen", "glm", "deepseek", "yi-", "doubao", "kimi", "llama-3"]):
+            self.edit_format = "diff"
+            self.use_repo_map = True
+            self.system_prompt_prefix = task_prompt
+            return
+        if any(k in m for k in ["flash", "haiku", "mini", "lite"]):
+            self.edit_format = "whole"
+            self.use_repo_map = False
+            return
         if self.edit_format == "diff":
             self.use_repo_map = True
-            return  # <--
+            return
 
     def __str__(self):
         return self.name
