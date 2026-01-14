@@ -23,9 +23,11 @@
 ## 🛠️ 安装与快速开始
 
 ### 1. 克隆并安装
+记住一定要将配置文件.env.example重命名为.env
 ```bash
 git clone https://github.com/nanshaws/Aider-TUI.git
 cd aider-tui
+mv .env.example .env
 python -m pip install --upgrade pip
 pip install -e .
 ```
