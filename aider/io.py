@@ -279,6 +279,7 @@ class InputOutput:
         self.multiline_mode = multiline_mode
         self.bell_on_next_input = False
         self.notifications = notifications
+        self.chat_mode = False
         if notifications and notifications_command is None:
             self.notifications_command = self.get_default_notification_command()
         else:
@@ -462,6 +463,10 @@ class InputOutput:
             style_dict.setdefault("", self.user_input_color)
             style_dict.update(
                 {
+                    "search_icon": "bg:#4b5263 #61afef bold",
+                    "search_label": "bg:#4b5263 #ffffff bold",
+                    "ask_label": "bg:#98c379 #282c34 bold",  
+                    "input_area": "bg:#282c34 #abb2bf",
                     "pygments.literal.string": f"bold italic {self.user_input_color}",
                 }
             )
@@ -730,11 +735,14 @@ class InputOutput:
             try:
                 if self.prompt_session:
                     # Construct search-box style UI
+                    is_chat = getattr(self, "chat_mode", False)
+                    label_text = "  AIDER-CHAT " if is_chat else "  AIDER-TUI "
+                    label_style = "class:ask_label" if is_chat else "class:search_label"
                     prompt_elements = FormattedText([
                         ("", "\n" + show.replace(self.prompt_prefix, "")), 
                          *self.get_task_bar_tokens(), 
                         ("", "\n"),                   
-                        ("class:search_label", "  AIDER-TUI"),
+                        (label_style, label_text), 
                         ("class:input_area", " "),
                     ])
 

@@ -137,7 +137,60 @@ class Commands:
 
     def cmd_chat_mode(self, args):
         "Switch to a new chat mode"
+        from aider import coders
 
+        ef = args.strip() # 必须先定义 ef
+        
+        valid_formats = OrderedDict(
+            sorted(
+                (
+                    coder.edit_format,
+                    coder.__doc__.strip().split("\n")[0] if coder.__doc__ else "No description",
+                )
+                for coder in coders.__all__
+                if getattr(coder, "edit_format", None)
+            )
+        )
+
+        show_formats = OrderedDict([
+            ("help", "Get help about using aider."),
+            ("ask", "Ask questions about your code without making any changes."),
+            ("code", "Ask for changes to your code."),
+            ("architect", "Work with an architect model to design changes."),
+            ("context", "Automatically identify which files will need to be edited."),
+        ])
+
+        if ef not in valid_formats and ef not in show_formats:
+            self.io.tool_error(f'Chat mode "{ef}" is invalid.')
+            return
+
+        summarize_from_coder = True
+        edit_format = ef
+
+        # --- 在这里添加 UI 联动逻辑 (此时 ef 已定义) ---
+        if ef == "ask":
+            self.io.chat_mode = True   # UI 变绿
+            summarize_from_coder = False
+        elif ef == "code":
+            self.io.chat_mode = False  # UI 变蓝
+            edit_format = self.coder.main_model.edit_format
+            summarize_from_coder = False
+
+        raise SwitchCoder(
+            edit_format=edit_format,
+            summarize_from_coder=summarize_from_coder,
+        )
+        "Switch to a new chat mode"
+
+        if ef == "ask":
+            self.io.chat_mode = True   
+        elif ef == "code":
+            self.io.chat_mode = False  
+
+        raise SwitchCoder(
+            edit_format=edit_format,
+            summarize_from_coder=summarize_from_coder,
+        )
         from aider import coders
 
         ef = args.strip()
@@ -251,7 +304,7 @@ class Commands:
             dict(role="user", content=content),
             dict(role="assistant", content="Ok."),
         ]
-	# --- 新增：打开浏览器命令 ---
+    # --- 新增：打开浏览器命令 ---
     def cmd_open(self, args):
         """Open a URL in the default browser"""
         url = args.strip()
