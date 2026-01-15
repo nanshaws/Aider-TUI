@@ -378,6 +378,21 @@ class InputOutput:
 
         # Validate color settings after console is initialized
         self._validate_color_settings()
+        if self.pretty:
+            logo = """
+    ___     _       __             ______   __  __  ____
+   /   |   (_) ____/ / ___   _____/_  __/  / / / / /  _/
+  / /| |  / / / __  / / _ \ / ___/ / /    / / / /  / /  
+ / ___ | / / / /_/ / /  __// /    / /    / /_/ / _/ /   
+/_/  |_|/_/  \__,_/  \___//_/    /_/     \____/ /___/   
+                                                        
+ >> AI-Native Pair Programming Assistant with Vision <<
+            """
+            # 使用你配置的蓝色 (user_input_color) 或默认青色
+            # 在第 199 行已定义 user_input_color
+            logo_style = self.user_input_color if self.user_input_color else "cyan"
+            self.console.print(f"[{logo_style}]{logo}[/{logo_style}]")
+            self.console.print("[italic #5c6370] Welcome to the next generation of AI coding...[/]\n")
         #
     def get_task_bar_tokens(self):
         if not self.total_steps:
